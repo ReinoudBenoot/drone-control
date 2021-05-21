@@ -54,7 +54,7 @@ The library also contains a killswitch to instantly shut down the drone and the 
 Note: This library was developed for indoor flight. As a result you will not find any functions that use a GPS module for navigation.
 
 ## Code Example
-The following lines of code are an example on how to use the library. When an object of the Drone class is created, a connection is also made with the drone or the simulator. To connect to the SITL simulator the connection string should be `'udp:127.0.0.1:14550'`. To connect to the drone, the connection string should be the COM port used by the telemetry radio, e.g., `'COM3'`. Further, this example orders the drone to takeoff to an altitude of 2 meters, wait there for one second and then land and disarm. In this example, the barometer is used to measure the altitude. `alt_type` can also be set to `"sonar"` or `"gps"`. The GPS option should only be used for the simulator since the simulator does not suffer from bad GPS signal. When flying a real drone indoors, using this option is not recommended. 
+The following lines of code are an example on how to use the library. 
 ```
 from src.Drone import *
 
@@ -67,3 +67,4 @@ time.sleep(1)
 drone.land()
 drone.disarm()
 ```
+When an object of the Drone class is created, a connection is also made with the drone or the simulator. To connect to the SITL simulator the connection string should be `'udp:127.0.0.1:14550'`. To connect to the drone, the connection string should be the COM port used by the telemetry radio, e.g., `'COM3'`. Further, this example orders the drone to takeoff to an altitude of 2 meters, wait there for one second and then land and disarm. In this example, the barometer is used to measure the altitude. `alt_type` can also be set to `"sonar"` or `"gps"`. The GPS option should only be used for the simulator since the simulator does not suffer from bad GPS signal. When flying a real drone indoors, using this option is not recommended. 
