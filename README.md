@@ -27,7 +27,11 @@ ArduPilot's SITL simulator was used for testing and developing the code. This si
 Two other useful programs that were used are [MissionPlanner](https://ardupilot.org/planner/docs/mission-planner-overview.html) and [QGroundControl](http://qgroundcontrol.com/). Both these programs are can be used to plan, analyse and setup both the drone in the simulator and the real drone. For installation see [MissionPlanner](https://ardupilot.org/planner/docs/mission-planner-installation.html) and [QGroundControl](https://docs.qgroundcontrol.com/master/en/getting_started/download_and_install.html).
 
 ## Usage
-Using the library is fairly straightforward. The library consists of three classes: Drone, Controller and PID. The Drone class contains many functions which a user can use to control the drone. The Controller and PID classes on the otherhand contain functions that are used in the Drone class but are not supposed to be used outside of that. The main purpose of these two classes is to create structure in the library and to make it clearer for the user which functions are meant to be used.
-Inside the Drone class you will find a lot of documentation in the code itself explaining the purpose of each function. 
+Using the library is fairly straightforward. The library consists of three classes: Drone, Controller and PID. The Drone class contains many functions which a user can use to control the drone. The Controller and PID classes on the otherhand contain functions that are used in the Drone class but are not supposed to be used on their own. The main purpose of these two classes is to create structure in the library and to make it clearer for the user which functions are meant to be used.\
+Inside the Drone class you will find a lot of documentation in the code itself explaining the purpose of each function. The most important functions for a user are listed here:
+| Function  | Description |
+| ------------- | ------------- |
+| arm  | Reinoud Benoot  |
+| Contact  | reinoud.benoot@student.kuleuven.be  |
 
 Note: This library was developed for indoor flight. As a result you will not find any functions that use a GPS module for navigation.
