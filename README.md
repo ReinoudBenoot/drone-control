@@ -9,8 +9,9 @@ In this repository you will find a library for controlling a multicopter using y
 ## Table of contents
 - [Installation](#Installation)
 - [Features](#Features)
-- [Simulator](#Simulator)
+- [Useful software](#Useful-software)
 - [Usage](#Usage)
+- [Code Example](#Code-Example)
 
 ## Installation
 In order to use this library you will need to clone this repository to your computer. You will also need to [install](https://mavlink.io/en/getting_started/installation.html) the MAVLink library for Python. Note: Certain functionalities also require the drone-object-detection-using-haar-cascades library which can be found [here](https://github.com/thomassabbe/drone-object-detection-using-haar-cascades). The library also uses [Matplotlib](https://matplotlib.org/stable/users/installing.html), [NumPy](https://numpy.org/install/) and [pynput](https://pypi.org/project/pynput/).
@@ -31,7 +32,21 @@ Using the library is fairly straightforward. The library consists of three class
 Inside the Drone class you will find a lot of documentation in the code itself explaining the purpose of each function. The most important functions for a user are listed here:
 | Function  | Description |
 | ------------- | ------------- |
-| arm  | Reinoud Benoot  |
-| Contact  | reinoud.benoot@student.kuleuven.be  |
+| arm  | Arms the drone.  |
+| arm_and_takeoff  | Arms the drone and starts taking off to the desired altitude. The program continues after reaching the desired altitude.  |
+| mode  | Sets the mode of the drone. Only Stabilize mode and Altitude Hold mode are available when flying inside.  |
+| change_alt  | Orders the drone to fly to the desired altitude. The program continues after reaching the desired altitude.  |
+| set_throttle  | Sets the throttle of the drone. Input is in %. <br /> Note: This function should only be used for debugging and testing purposes. For takeoff, using change_alt is recommended.|
+| land  | Lands the drone.  |
+| go_to_target  | Can be used to order the drone to fly to the detected target. This only causes the drone to move horizontally, so the drone should already be airborne.  |
+| pitch  | Causes the drone to pitch to the desired angle.  |
+| roll  | Causes the drone to roll to the desired angle.  |
+| yaw  | Causes the drone to yaw to the desired angle relative to its current heading.  |
+| disarm  | Disarms the drone. Only works when the drone is no longer airborne.  |
+
+The library also contains a killswitch to instantly shut down the drone and the program. This killswitch is bound to 'k'.
 
 Note: This library was developed for indoor flight. As a result you will not find any functions that use a GPS module for navigation.
+
+## Code Example
+
