@@ -23,9 +23,14 @@ Note: MAVLink's Python library also requires a library called serial. This libra
 - Navigation to a target detected using the drone-object-detection-using-haar-cascades library
 
 ## Useful software
-ArduPilot's SITL simulator was used for testing and developing the code. This simulator does not require any hardware and can be used to accurately simulate the behaviour of the drone. For further info and installation see following [link](https://ardupilot.org/dev/docs/sitl-simulator-software-in-the-loop.html). A tutorial on how to use the simulator is provided at [ArduPilot SITL simulator Tutorial](https://ardupilot.org/dev/docs/copter-sitl-mavproxy-tutorial.html).
+ArduPilot's SITL simulator was used for testing and developing the code. This simulator does not require any hardware and can be used to accurately simulate the behaviour of the drone. For further info and installation see following [link](https://ardupilot.org/dev/docs/sitl-simulator-software-in-the-loop.html).  To start the simulator following commands must be executed in cygwin, assuming you installed the simulator following the steps in the link above:
+```
+cd ardupilot/ArduCopter
+../Tools/autotest/sim_vehicle.py -v ArduCopter --map --console --out 127.0.0.1:14550
+```
+For further information, a tutorial on how to use the simulator is provided at [ArduPilot SITL simulator Tutorial](https://ardupilot.org/dev/docs/copter-sitl-mavproxy-tutorial.html).
 
-Two other useful programs that were used are [MissionPlanner](https://ardupilot.org/planner/docs/mission-planner-overview.html) and [QGroundControl](http://qgroundcontrol.com/). Both these programs are can be used to plan, analyse and setup both the drone in the simulator and the real drone. For installation see [MissionPlanner](https://ardupilot.org/planner/docs/mission-planner-installation.html) and [QGroundControl](https://docs.qgroundcontrol.com/master/en/getting_started/download_and_install.html).
+Two other useful programs that were used are [MissionPlanner](https://ardupilot.org/planner/docs/mission-planner-overview.html) and [QGroundControl](http://qgroundcontrol.com/). Both these programs are Ground Control Software (GCS) that can be used to plan, analyse and setup both the drone in the simulator and the real drone. For installation see [MissionPlanner](https://ardupilot.org/planner/docs/mission-planner-installation.html) and [QGroundControl](https://docs.qgroundcontrol.com/master/en/getting_started/download_and_install.html).
 
 ## Usage
 Using the library is fairly straightforward. The library consists of three classes: Drone, Controller and PID. The Drone class contains many functions which a user can use to control the drone. The Controller and PID classes on the otherhand contain functions that are used in the Drone class but are not supposed to be used on their own. The main purpose of these two classes is to create structure in the library and to make it clearer for the user which functions are meant to be used.\
@@ -49,4 +54,16 @@ The library also contains a killswitch to instantly shut down the drone and the 
 Note: This library was developed for indoor flight. As a result you will not find any functions that use a GPS module for navigation.
 
 ## Code Example
+The following lines of code are an example on how to use the library. When an object of the Drone class is created, a connection is also made with the drone or the simulator. To connect to the SITL simulator the connection string should be `'udp:127.0.0.1:14550'`. To connect to the drone, the connection string should be the COM port used by the telemetry radio, e.g., `'COM3'`. Further, this example orders the drone to takeoff to an altitude of 2 meters, wait there for one second and then land and disarm. In this example, the barometer is used to measure the altitude. `alt_type` can also be set to `"sonar"` or `"gps"`. The GPS option should only be used for the simulator since the simulator does not suffer from bad GPS signal. When flying a real drone indoors, using this option is not recommended. 
+```
+from src.Drone import *
 
+connection_string = 'udp:127.0.0.1:14550'
+
+drone = Drone(connection_string, alt_type="barometer")
+
+drone.arm_and_takeoff(2)
+time.sleep(1)
+drone.land()
+drone.disarm()
+```
