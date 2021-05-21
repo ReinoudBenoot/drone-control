@@ -41,7 +41,7 @@ Inside the Drone class you will find a lot of documentation in the code itself e
 | arm_and_takeoff  | Arms the drone and starts taking off to the desired altitude. The program continues after reaching the desired altitude.  |
 | mode  | Sets the mode of the drone. Only Stabilize mode and Altitude Hold mode are available when flying inside.  |
 | change_alt  | Orders the drone to fly to the desired altitude. The program continues after reaching the desired altitude.  |
-| set_throttle  | Sets the throttle of the drone. Input is in %. <br /> Note: This function should only be used for debugging and testing purposes. For takeoff, using change_alt is recommended.|
+| set_throttle  | Sets the throttle of the drone. Input is in %. <br /> Note: This function should only be used for debugging and testing purposes. For changing altitude, using change_alt is recommended.|
 | land  | Lands the drone.  |
 | go_to_target  | Can be used to order the drone to fly to the detected target. This only causes the drone to move horizontally, so the drone should already be airborne.  |
 | pitch  | Causes the drone to pitch to the desired angle.  |
