@@ -2,10 +2,9 @@ from src.Drone import *
 import matplotlib.pyplot as plt
 import time
 
-connection_string = "COM3"
+connection_string = 'udp:127.0.0.1:14550'
 
 drone = Drone(connection_string, alt_type='barometer')
-drone.vehicle.wait_heartbeat()
 altitude = []
 duration = 10
 start_time = time.monotonic()

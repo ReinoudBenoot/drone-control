@@ -1,8 +1,7 @@
-from matplotlib import pyplot as plt
 from src.Drone import *
 import time
 
-connection_string = "COM4"
+connection_string = "udp:127.0.0.1:14550"
 drone = Drone(connection_string)
 
 drone.arm()
@@ -21,15 +20,14 @@ ref_alt = drone.get_altitude(1)
 start_time = time.monotonic()
 rc_l = []
 while True:
-    drone.multiplexer_add('throttle_control', 20, priority=5)
-    thr = drone.get_message('SERVO_OUTPUT_RAW', True, priority=4)
-    rc = drone.get_message('RC_CHANNELS', True, priority=4)
+    drone.set_throttle(20, priority=5)
+    thr = drone.servo_output_raw[-1]
+    rc = drone.rc_channels[-1]
     print("Input1:", rc['chan3_raw'])
     print("Motor1:", thr['servo1_raw'])
     print("Motor3:", thr['servo3_raw'])
     print("Motor5:", thr['servo5_raw'])
-    press = drone.get_altitude(1)
-    alt_diff = ((ref_alt - press) * 100) / (1.29 * 9.81)
+    alt = drone.get_altitude(1)
     servo1.append(thr['servo1_raw'])
     servo2.append(thr['servo2_raw'])
     servo3.append(thr['servo3_raw'])
@@ -37,16 +35,15 @@ while True:
     servo5.append(thr['servo5_raw'])
     servo6.append(thr['servo6_raw'])
     t.append(time.monotonic() - start_time)
-    h.append(alt_diff)
+    h.append(alt)
     rc_l.append(rc['chan3_raw'])
 
     if time.monotonic() - start_time > 3:
-        drone.multiplexer_add('throttle_control', 10, priority=6)
-        drone.multiplexer_add('throttle_control', 0, priority=7)
+        drone.set_throttle(0, priority=6)
         break
 
-drone.vehicle.arducopter_disarm()
-plt.figure()
+drone.disarm()
+plt.figure(1)
 plt.plot(t, servo1, color="red", label="Motor 1")
 plt.plot(t, servo2, "--",color="red", label="Motor 2")
 plt.plot(t, servo3, color="yellow", label="Motor 3")
@@ -58,7 +55,7 @@ plt.legend()
 plt.grid(b=True)
 plt.show()
 
-plt.figure()
+plt.figure(2)
 plt.plot(t, h, color="black", label="Altitude [m]")
 plt.legend()
 plt.grid(b=True)
