@@ -12,6 +12,7 @@ In this repository you will find a library for controlling a multicopter using y
 - [Useful software](#Useful-software)
 - [Usage](#Usage)
 - [Code Example](#Code-Example)
+- [Short Demonstration](#Short-Demonstration)
 
 ## Installation
 In order to use this library you will need to clone this repository to your computer. You will also need to [install](https://mavlink.io/en/getting_started/installation.html) the MAVLink library for Python. Note: Certain functionalities also require the drone-object-detection-using-haar-cascades library which can be found [here](https://github.com/thomassabbe/drone-object-detection-using-haar-cascades). The library also uses [Matplotlib](https://matplotlib.org/stable/users/installing.html), [NumPy](https://numpy.org/install/) and [pynput](https://pypi.org/project/pynput/).
@@ -68,3 +69,8 @@ drone.land()
 drone.disarm()
 ```
 When an object of the Drone class is created, a connection is also made with the drone or the simulator. To connect to the SITL simulator the connection string should be `'udp:127.0.0.1:14550'`. To connect to the drone, the connection string should be the COM port used by the telemetry radio, e.g., `'COM3'`. Further, this example orders the drone to takeoff to an altitude of 2 meters, wait there for one second and then land and disarm. In this example, the barometer is used to measure the altitude. `alt_type` can also be set to `"sonar"` or `"gps"`. The GPS option should only be used for the simulator since the simulator does not suffer from bad GPS signal. When flying a real drone indoors, using this option is not recommended. 
+
+## Short Demonstration
+In following video a short demonstration in the simulator is shown. The drone takes off to an altitude of approx. 2m after which it rotates through an angle of 20°. Then it pitches forward and flies a distance until it slows down again. The demonstration ends with the drone landing.
+Note: This demonstration does not include the object detection. The drone simply flies a certain distance forward.
+[![Short Demonstration](http://img.youtube.com/vi/LFrgGkENEBE/0.jpg)](http://www.youtube.com/watch?v=LFrgGkENEBE)
